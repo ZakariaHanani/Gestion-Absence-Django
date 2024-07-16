@@ -13,5 +13,11 @@ Le projet global consiste en un système de gestion de présence avec un serveur
 - API pour l'application mobile Flutter
 
 ## Dépôt lié
-
 L'application mobile Flutter liée à ce projet peut être trouvée ici : https://github.com/Zakarro/Mobile-App-Flutter.git
+
+##Créateurs de l'application
+Cette application a été développée par :
+
+Zakaria Hanani
+Youness Jayid
+Hosam Elhaddajy
