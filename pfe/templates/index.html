@@ -1,0 +1,28 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <div id="bg"></div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="logo">
+            <img src="{% static 'img/logo.png' %}" alt="img">
+        </div>
+        <div class="form-field">
+            {{ form.id }}
+        </div>
+        <div class="form-field">
+            {{ form.password}}
+        </div>
+        <div class="form-field">
+            <button class="btn" type="submit">Se connecter</button>
+        </div>
+    </form>
+</body>
+</html>

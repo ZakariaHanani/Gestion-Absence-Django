@@ -1,0 +1,9 @@
+
+
+<div class="top-bar">
+        <p>ECOLE SUPERIEURE DE TECHNOLOGIE GUELMIM</p>
+       <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">Logout</button> <!-- Logout Button -->
+       </form>
+</div>

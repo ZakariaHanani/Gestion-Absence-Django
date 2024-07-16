@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Seance Details</title>
+    <style>
+        body, html {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: #f4f4f4;
+        }
+
+        .content-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 60px; /* Adjust based on your navbar's actual height */
+            box-sizing: border-box;
+        }
+
+        .top-bar {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1;
+        }
+
+        .logout-button {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            background-color: #ff4d4d; /* Red color for logout */
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 50px;
+            margin-top: 5px;
+        }
+
+        .logout-button:hover {
+            background-color: #cc0000; /* Darker red on hover */
+        }
+
+        .seance-details, .attendance-table {
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .seance-details > div, .attendance-table table {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .seance-details > div {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .seance-details label {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .attendance-table h2 {
+            text-align: center;
+        }
+
+        button {
+            appearance: none;
+            background-color: #007BFF; /* Primary button color */
+            border: 2px solid #007BFF; /* Border color matches the background */
+            border-radius: 15px;
+            color: #ffffff; /* White text color */
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 16px 24px;
+            text-decoration: none;
+            transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+            width: auto; /* Adjusted width for content fitting */
+            margin-top: 20px; /* Space above the button */
+        }
+
+        button:hover, .button:focus {
+            background-color: #0056b3; /* Darker shade on hover/focus */
+            border-color: #0056b3;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5); /* Glow effect */
+            transform: translateY(-2px); /* Slight lift */
+        }
+        @media print {
+            .top-bar, #print-btn {
+                display: none;
+            }
+            button{
+                display: none;
+            }
+    }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="seance-details">
+        <h1>Details de la seance</h1>
+        <div><label>Nom:</label><span>{{ seance.Nom }}</span></div>
+        <div><label>Date:</label><span>{{ seance.DateSeance }}</span></div>
+        <div><label>Heure Début:</label><span>{{ seance.HeureDebut }}</span></div>
+        <div><label>Heure Fin:</label><span>{{ seance.HeureFin }}</span></div>
+        <div><label>Filiere:</label><span>{{ filiere.Nom }}</span></div>
+        <div><label>Annee:</label><span>{{ annee.Nom }}</span></div>
+        <div><label>Professeur:</label><span>{{ seance.Identifiant_Professeur }}</span></div>
+        <div><label>Matiere:</label><span>{{ seance.Identifiant_Matiere }}</span></div>
+        <div>
+        <img src="{% static img_path %}" alt="img" >
+        </div>
+    </div>
+
+
+    <div class="attendance-table">
+        <h2>Attendance</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Nom complet</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attendance in attendances %}
+                <tr>
+                    <td>{{ attendance.Identifiant_Etudiant.id }}</td>
+                    <td>{{ attendance.Identifiant_Etudiant.fname }} {{ attendance.Identifiant_Etudiant.lname }}</td>
+                    <td>{{ attendance.Status }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">cette seance est vide! </td>
+                </tr>
+                {% endfor %}
+
+
+            </tbody>
+        </table>
+        <button id="print-btn">  Imprimer</button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('print-btn').addEventListener('click', function() {
+                window.print();
+            });
+        });
+    </script>
+</body>
+</html>
